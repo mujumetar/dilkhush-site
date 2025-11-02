@@ -471,7 +471,7 @@ const Productcard = () => {
                   key={ele._id || index}
                 >
                   <div
-                    className="card border-0 shadow-sm h-100 product-card-hover"
+                    className="card border-0 shadow-sm h-100  product-card-hover"
                     onClick={() => navigate(`/product/${ele._id}`)}
                     style={{
                       cursor: 'pointer',
@@ -546,7 +546,7 @@ const Productcard = () => {
                           transition: 'opacity 0.3s ease'
                         }}
                       >
-                        <button className="btn btn-light btn-sm rounded-pill shadow">
+                        <button className="btn btn-light btn-sm rounded-3 shadow">
                           <i className="bi bi-eye me-2"></i>See more
                         </button>
                       </div>
@@ -580,7 +580,7 @@ const Productcard = () => {
                       {/* Action Buttons */}
                       <div className="d-grid gap-2">
                         <button
-                          className="btn btn-primary rounded-pill fw-semibold"
+                          className="btn btn-primary rounded-3 fw-semibold"
                           style={{
                             background: 'linear-gradient(135deg, #0d6efd 0%, #6610f2 100%)',
                             border: 'none',
@@ -606,12 +606,12 @@ const Productcard = () => {
                     </div>
 
                     {/* Card Footer (Optional - for additional info) */}
-                    <div className="card-footer bg-transparent border-0 pt-0 pb-3 px-4">
+                    {/* <div className="card-footer bg-transparent border-0 pt-0 pb-3 px-4">
                       <div className="d-flex justify-content-between align-items-center text-muted small">
                         <span><i className="bi bi-truck me-1"></i> 5 ⭐⭐⭐⭐⭐</span>
                         <span><i className="bi bi-shield-check me-1"></i>200+ orders</span>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               ))}
@@ -2208,101 +2208,101 @@ const OrderFailed = ({ errorMessage = "We couldn't process your payment. Please 
 };
 
 // Blog Component
-const Blog = () => {
-  const navigate = useNavigate();
-  const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+// const Blog = () => {
+//   const navigate = useNavigate();
+//   const [blogs, setBlogs] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        // console.log('Fetching blogs from:', `${import.meta.env.VITE_API_URL}/blogs`);
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/blogs`);
-        if (!response.ok) {
-          const text = await response.text();
-          console.error('Non-JSON response:', text);
-          throw new Error(`Failed to fetch blogs: ${response.status} ${response.statusText}`);
-        }
-        const data = await response.json();
-        setBlogs(data);
-        setLoading(false);
-      } catch (err) {
-        console.error('Error fetching blogs:', err);
-        setError(err.message);
-        setLoading(false);
-      }
-    };
-    fetchBlogs();
-  }, []);
+//   useEffect(() => {
+//     const fetchBlogs = async () => {
+//       try {
+//         // console.log('Fetching blogs from:', `${import.meta.env.VITE_API_URL}/blogs`);
+//         const response = await fetch(`${import.meta.env.VITE_API_URL}/blogs`);
+//         if (!response.ok) {
+//           const text = await response.text();
+//           console.error('Non-JSON response:', text);
+//           throw new Error(`Failed to fetch blogs: ${response.status} ${response.statusText}`);
+//         }
+//         const data = await response.json();
+//         setBlogs(data);
+//         setLoading(false);
+//       } catch (err) {
+//         console.error('Error fetching blogs:', err);
+//         setError(err.message);
+//         setLoading(false);
+//       }
+//     };
+//     fetchBlogs();
+//   }, []);
 
-  const handleViewDetails = (blog) => {
-    navigate(`/blogs/${blog._id}`);
-  };
+//   const handleViewDetails = (blog) => {
+//     navigate(`/blogs/${blog._id}`);
+//   };
 
-  // console.log(blogs.tags, typeof blogs.tags);
-  return (
-    <div className="container mt-4" data-aos="fade-up">
-      <h2 className="section-title text-center my-3">Blog</h2>
-      {loading && <p>Loading blogs...</p>}
-      {error && <p className="text-danger">Error: {error}</p>}
-      {!loading && !error && blogs.length === 0 && <p>No blogs available</p>}
-      <div className="row">
-        {blogs.map((blog, index) => (
-          <div
-            className="col-lg-4 col-md-6 mb-4"
-            data-aos="fade-up"
-            data-aos-duration="2000"
-            key={blog._id || index}
-            onClick={() => handleViewDetails(blog)}
-          >
-            <div className="card h-100">
-              <div className="card-img-top">
-                <img
-                  src={blog.image || 'https://via.placeholder.com/400x200'} // Use Cloudinary URL or placeholder
-                  alt={blog.title}
-                  className="img-fluid"
-                  style={{ height: '200px', objectFit: 'cover' }}
-                />
-              </div>
-              <div className="card-body">
-                <h3 className="card-title">{blog.title || 'Untitled Blog'}</h3>
-                <p className="card-text">{blog.content?.substring(0, 100)}...</p>
-                <div className="d-flex justify-content-between">
-                  <span className="text-muted">{blog.author || 'Anonymous'}</span>
-                  <span className="text-muted">{new Date(blog.createdAt).toLocaleDateString()}</span>
-                </div>
-                {blog.tags && (
-                  <div className="mt-2">
-                    {(() => {
-                      let tags = [];
-                      try {
-                        // Try to parse if it's a JSON string (e.g. '["tag1","tag2"]')
-                        tags = typeof blog.tags === "string" ? JSON.parse(blog.tags) : blog.tags;
-                      } catch {
-                        // Fallback: if it's a simple string like "tag1,tag2"
-                        tags = blog.tags.split(",").map(t => t.trim());
-                      }
+//   // console.log(blogs.tags, typeof blogs.tags);
+//   return (
+//     <div className="container mt-4" data-aos="fade-up">
+//       <h2 className="section-title text-center my-3">Blog</h2>
+//       {loading && <p>Loading blogs...</p>}
+//       {error && <p className="text-danger">Error: {error}</p>}
+//       {!loading && !error && blogs.length === 0 && <p>No blogs available</p>}
+//       <div className="row">
+//         {blogs.map((blog, index) => (
+//           <div
+//             className="col-lg-4 col-md-6 mb-4"
+//             data-aos="fade-up"
+//             data-aos-duration="2000"
+//             key={blog._id || index}
+//             onClick={() => handleViewDetails(blog)}
+//           >
+//             <div className="card h-100">
+//               <div className="card-img-top">
+//                 <img
+//                   src={blog.image || 'https://via.placeholder.com/400x200'} // Use Cloudinary URL or placeholder
+//                   alt={blog.title}
+//                   className="img-fluid"
+//                   style={{ height: '200px', objectFit: 'cover' }}
+//                 />
+//               </div>
+//               <div className="card-body">
+//                 <h3 className="card-title">{blog.title || 'Untitled Blog'}</h3>
+//                 <p className="card-text">{blog.content?.substring(0, 100)}...</p>
+//                 <div className="d-flex justify-content-between">
+//                   <span className="text-muted">{blog.author || 'Anonymous'}</span>
+//                   <span className="text-muted">{new Date(blog.createdAt).toLocaleDateString()}</span>
+//                 </div>
+//                 {blog.tags && (
+//                   <div className="mt-2">
+//                     {(() => {
+//                       let tags = [];
+//                       try {
+//                         // Try to parse if it's a JSON string (e.g. '["tag1","tag2"]')
+//                         tags = typeof blog.tags === "string" ? JSON.parse(blog.tags) : blog.tags;
+//                       } catch {
+//                         // Fallback: if it's a simple string like "tag1,tag2"
+//                         tags = blog.tags.split(",").map(t => t.trim());
+//                       }
 
-                      return Array.isArray(tags) && tags.length > 0 ? (
-                        tags.map((tag, idx) => (
-                          <span key={idx} className="badge bg-primary me-1">
-                            {tag}
-                          </span>
-                        ))
-                      ) : null;
-                    })()}
-                  </div>
-                )}
+//                       return Array.isArray(tags) && tags.length > 0 ? (
+//                         tags.map((tag, idx) => (
+//                           <span key={idx} className="badge bg-primary me-1">
+//                             {tag}
+//                           </span>
+//                         ))
+//                       ) : null;
+//                     })()}
+//                   </div>
+//                 )}
 
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
+//               </div>
+//             </div>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
 
 // Main App Component
 function App() {
@@ -2318,7 +2318,7 @@ function App() {
                 <Slider />
                 <Productcard />
                 <Blog />
-                <div className="">
+                <div className="mt-5">
                   <Footers />
                 </div>
 
@@ -2331,7 +2331,7 @@ function App() {
               <>
                 <Navbars />
                 <Productcard />
-                <div className="">
+                <div className="mt-5">
                   <Footers />
                 </div>
 
@@ -2344,7 +2344,7 @@ function App() {
               <>
                 <Navbars />
                 <About />
-                <div className="">
+                <div className="mt-5">
                   <Footers />
                 </div>
 
@@ -2357,7 +2357,7 @@ function App() {
               <>
                 <Navbars />
                 <Cart />
-                <div className="">
+                <div className="mt-5">
                   <Footers />
                 </div>
 
@@ -2374,7 +2374,7 @@ function App() {
               <>
                 <Navbars />
                 <Checkout />
-                <div className="">
+                <div className="mt-5">
                   <Footers />
                 </div>
 
@@ -2387,7 +2387,7 @@ function App() {
               <>
                 <Navbars />
                 <Contact />
-                <div className="">
+                <div className="mt-5">
                   <Footers />
                 </div>
 
@@ -2400,7 +2400,7 @@ function App() {
               <>
                 <Navbars />
                 <Blog />
-                <div className="">
+                <div className="mt-5">
                   <Footers />
                 </div>
 
@@ -2414,7 +2414,7 @@ function App() {
                 <Navbars />
                 {/* <Blog /> */}
                 {/* <Offerspage/> */}
-                <div className="">
+                <div className="mt-5">
                   <Footers />
                 </div>
 
@@ -2437,7 +2437,7 @@ function App() {
               <>
                 <Navbars />
                 <BlogDetails />
-                <div className="">
+                <div className="mt-5">
                   <Footers />
                 </div>
 
@@ -2454,7 +2454,7 @@ function App() {
                   <h2>Order Placed Successfully!</h2>
                   <p>Thank you for your purchase. You will receive a confirmation email soon.</p>
                 </div>
-                <div className="">
+                <div className="mt-5">
                   <Footers />
                 </div>
 
@@ -2467,7 +2467,20 @@ function App() {
               <>
                 <Navbars />
                 <OrderFailed />
-                <div className="">
+                <div className="mt-5">
+                  <Footers />
+                </div>
+
+              </>
+            }
+          />
+          <Route
+            path="/my"
+            element={
+              <>
+                <Navbars />
+                <MyOrders />
+                <div className="mt-5">
                   <Footers />
                 </div>
 
